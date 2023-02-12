@@ -1,5 +1,5 @@
 ---
-import { Hero } from "@/partials/Hero";
+import Projects from "@/partials/ProjectsPage";
 import Base from "@/templates/Base.astro";
 import { AppConfig } from "@/utils/AppConfig";
 
@@ -8,5 +8,5 @@ const { description } = AppConfig;
 ---
 
 <Base head={{ title, description }}>
-  <Hero client:load />
+  <Projects client:load />
 </Base>

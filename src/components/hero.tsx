@@ -8,7 +8,7 @@ import {
   DECLARE_ANIMATION,
 } from '../utils/animationData';
 
-const Hero = () => {
+export default function Hero() {
   return (
     <>
       <motion.section
@@ -91,5 +91,4 @@ const Hero = () => {
       </motion.section>
     </>
   );
-};
-export { Hero };
+}

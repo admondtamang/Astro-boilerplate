@@ -1,8 +1,7 @@
 ---
-import { Footer } from '@/partials/Footer';
-import { Navbar } from '@/partials/Navbar';
-import { AppConfig } from '@/utils/AppConfig';
-
+import Header from "@/partials/Header";
+import { AppConfig } from "@/utils/AppConfig";
+import "@/styles/global.css";
 export interface Props {
   head: {
     title: string;
@@ -13,24 +12,53 @@ export interface Props {
 const {
   head: { title, description },
 } = Astro.props as Props;
+const NEXT_PUBLIC_GTM = process.env.NEXT_PUBLIC_GTM || "GTM-MD5WPHP";
 ---
 
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <meta name='description' content={description} />
-    <meta name='author' content={AppConfig.author} />
+    <meta name="description" content={description} />
+    <meta name="author" content={AppConfig.author} />
 
-    <link rel='alternate' type='application/rss+xml' href='/rss.xml' />
-    <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script
+      src={`https://www.googletagmanager.com/gtag/js?id=${NEXT_PUBLIC_GTM}`}
+      type="text/partytown"
+    >
+
+    </script>
+
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "fg2zxz06pg");`,
+      }}
+    >
+
+    </script>
   </head>
-  <body class='bg-slate-900 text-gray-100'>
-    <Navbar />
 
-    <slot></slot>
-
-    <Footer />
+  <body
+    class="bg-white font-mono transition-all duration-700 dark:bg-slate-800"
+  >
+    <Header client:load />
+    <main class="min-h-[90vh]">
+      <slot />
+    </main>
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MD5WPHP"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
+    </noscript>
   </body>
 </html>
